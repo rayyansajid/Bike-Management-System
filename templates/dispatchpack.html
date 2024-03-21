@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dispatch Package</title>
+    <link rel="stylesheet" type="text/css" href="{% static "dispatchpackage.css" %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    {% if user.is_authenticated %}
+    <form action="{% url "Dispatch Package" Package.id %}" method="post" class="dispatch-form">
+        {% csrf_token %}
+        <div class="container">
+            <div class="dispatch-package-container">
+                <span class="top-effect"></span>
+                <h2>Dispatch <span class="Package-title">Package</span></h2>
+                <div class="num-of-boxes">
+                    <label for="NumOfBoxes">No Of Boxes:</label>
+                    <input type="number" placeholder="Enter Number Of Boxes: " name="NumOfBoxes" required>
+                </div>
+                <div class="logistic">
+                    <label for="deliveringlogistic"><p>Choose Logistics Company delivering this Package:</p></label>
+                    <select name="deliveringlogistic" required>
+                        {% for logistic in Logistics %}
+                        <option value="{{ logistic.id }}">{{ logistic.Name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit">Dispatch This Package</button>
+            </div>
+        </div>
+    </form>
+    {% endif %}
+</body>
+</html>

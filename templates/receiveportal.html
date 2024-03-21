@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receive Order</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+        :root {
+            --color-primary: #7380ec;
+            --box-shadow: 0 2rem 3rem var(--color-light);
+        }
+
+        /* Resets */
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #737fec2c;
+        }
+
+        body,
+        input,
+        textarea {
+            font-family: "Poppins", sans-serif;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100vw;
+            max-width: 1180px;
+            padding: 0 20px;
+            overflow: hidden;
+            height: 100vh;
+            margin-inline: auto;
+        }
+
+        .receive-order-form {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            position: relative;
+            margin-bottom: 45px;
+            font-weight: 550;
+            display: inline-block;
+        }
+
+        .title-cust {
+            color: var(--color-primary);
+        }
+
+        .Ques {
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: black;
+            font-size: 21px;
+        }
+
+        .radio-btn {
+            display: flex;
+            flex-direction: row;
+            gap: 2rem;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .input-field {
+            position: relative;
+            max-width: 380px;
+            width: 100%;
+            height: 55px;
+            background-color: #f0f0f0;
+            margin: 10px 0;
+            border-radius: 55px;
+            display: grid;
+            grid-template-columns: 15% 85%;
+            padding: 0 .4rem;
+        }
+
+        .input-field i {
+            text-align: center;
+            line-height: 55px;
+            color: #acacac;
+            font-size: 0.8rem;
+        }
+
+        .input-field input {
+            background: none;
+            outline: none;
+            border: none;
+            line-height: 1;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: #333;
+        }
+
+        .input-field input::placeholder {
+            color: #aaa;
+            font-weight: 500;
+        }
+
+        .inputs {
+            margin-top: 20px;
+            background: white;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.045);
+            border-radius: 10px;
+            padding: 13px 20px;
+            position: relative;
+        }
+
+        .inputs::after {
+            content: '';
+            display: block;
+            width: calc(100% - 20px);
+            height: 5px;
+            background-color: var(--color-primary);
+            /* You can change the color as needed */
+            position: absolute;
+            top: 0;
+            /* Adjust the position of the line as needed */
+            left: 10px;
+        }
+
+        .input-container {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            text-align: start;
+            max-width: 380px;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .input-container p {
+            font-size: 0.8rem;
+            color: gray;
+        }
+
+        .btn {
+            width: 150px;
+            height: 49px;
+            border: none;
+            outline: none;
+            border-radius: 49px;
+            cursor: pointer;
+            background-color: var(--color-primary);
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin: 10px 0;
+            box-shadow: var(--box-shadow);
+            transition: all 300ms ease-in-out;
+        }
+
+        .btn:hover {
+            box-shadow: none;
+            background-color: #4d84e2;
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="receive-order-form">
+            <h2>Parcel <span class="title-cust">Receiving</span></h2>
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="color:red;">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+            <form action="{% url 'Receive It' %}" method="post">
+                {% csrf_token %}
+                <p class="Ques">Are you a ?</p>
+                <div class="radio-btn">
+                    <div class="yes-btn">
+                        <input type="radio" id="customer" name="receiver" value="customer" checked>
+                        <label for="customer">Customer</label>
+                    </div>
+                    <div class="no-btn">
+                        <input type="radio" id="logistic" name="receiver" value="logistic">
+                        <label for="logistic">Logistics</label>
+                    </div>
+                </div>
+                <div class="inputs">
+                    <div class="input-container">
+                        <p>Enter your name</p>
+                        <div class="input-field">
+                            <i class="fas fa-user"></i>
+                            <input type="text" placeholder="Enter Your Name" name="name" required>
+                        </div>
+                    </div>
+
+                    <div class="input-container">
+                        <p>Enter valid package number</p>
+                        <div class="input-field">
+                            <i class="fas fa-hashtag"></i>
+                            <input type="number" placeholder="Enter Pkg# written on box" name="packageID" required>
+                        </div>
+                    </div>
+
+                    <!-- New input field for builty number -->
+                    <div class="input-container" id="builty-container" style="display: none;">
+                        <p style="text-align: center;">Enter builty number</p>
+                        <div class="input-field">
+                            <i class="fas fa-hashtag"></i>
+                            <input type="text" placeholder="Enter Builty Number" name="builtyNumber" id="builtyNumber">
+                        </div>
+                    </div>
+                </div>
+                <button class="btn transparent" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Get the radio buttons and builty container
+            var customerRadio = document.getElementById('customer');
+            var logisticRadio = document.getElementById('logistic');
+            var builtyContainer = document.getElementById('builty-container');
+
+            // Add an event listener to the radio buttons
+            customerRadio.addEventListener('change', toggleBuiltyInput);
+            logisticRadio.addEventListener('change', toggleBuiltyInput);
+
+            // Function to toggle the visibility of the builty input field
+            function toggleBuiltyInput() {
+                builtyContainer.style.display = logisticRadio.checked ? 'block' : 'none';
+            }
+
+            // Trigger the change event to initialize the state
+            customerRadio.dispatchEvent(new Event('change'));
+        });
+    </script>
+</body>
+
+</html>

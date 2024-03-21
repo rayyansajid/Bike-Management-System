@@ -1,0 +1,116 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Package Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+     <link rel="stylesheet" type="text/css" href="{% static "package_details.css" %}">
+</head>
+
+<body>
+    {% if user.is_authenticated %}
+    <div class="container">
+        <div class="card">
+            <span class="top-effect"></span>
+            <div class="col">
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <td>{{Package.id}}</td>
+                    </tr>
+                    <tr>
+                        <th>Order Received on</th>
+                        <td>{{Package.payorderDate}}</td>
+                    </tr>
+                    <tr>
+                        <th>Client Name</th>
+                        <td>{{Package.Client.Name}}</td>
+                    </tr>
+                    <tr>
+                        <th>Address</th>
+                        <td>{{Package.Client.Address}}</td>
+                    </tr>
+                    <tr>
+                        <th>Contact</th>
+                        <td>{{Package.Client.Contact_Num}}</td>
+                    </tr>
+                    <tr>
+                        <th>Email</th>
+                        <td>{{Package.Client.Email}}</td>
+                    </tr>
+                    <tr>
+                        <th>Company</th>
+                        <td>{{Package.Client.Company}}</td>
+                    </tr>
+                    <tr>
+                        <th>Status</th>
+                        <td>{{Package.Status}}</td>
+                    </tr>
+                    <tr>
+                        <th>Instructions</th>
+                        <td>{{Package.Instructions}}</td>
+                    </tr>
+                    {% if Package.Status == "Dispatched" or Package.Status == "On The Way" %}
+
+                     <tr>
+                        <th>No Of Boxes</th>
+                        <td>{{Package.Num_of_Boxes}}</td>
+                    </tr>
+                    <tr>
+                        <th>Logistics</th>
+                        <td>{{Package.Logistics}}</td>
+                    </tr>
+
+                    {% elif Package.Status == "Delivered" %}
+                    <tr>
+                        <th>No Of Boxes</th>
+                        <td>{{Package.Num_of_Boxes}}</td>
+                    </tr>
+                    <tr>
+                        <th>Logistics</th>
+                        <td>{{Package.Logistics}}</td>
+                    </tr>
+                    <tr>
+                        <th>Delivered On</th>
+                        <td>{{Package.DeliveryDate}}</td>
+                    </tr>
+                    <tr>
+                        <th>Receiver's Name</th>
+                        <td>{{Package.Receivername}}</td>
+                    </tr>
+                </table>
+            </div>
+
+             {% else %}
+            <a href="{% url "Dispatch Package" Package.id %}" action="get" class = "Prepare">Perpare For Dispatch</a>
+            {% endif %}
+        
+        <table>
+            <thead>
+                <h3>Ordered Items</h3>
+                <th>Nr.</th>
+                <th>Product</th>
+                <th>Bike Type</th>
+                <th>Quantity</th>
+            </thead>
+            <tbody>
+                {% for Assprods in AssociatedProducts %}
+                <tr>
+                    <td>{{Assprods.id}}</td>
+                    <td>{{Assprods.Name}}</td>
+                    <td>{{Assprods.Bike_Type}}</td>
+                    <td>{{Assprods.Quantity}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        </div>
+    </div>
+    {% endif %}
+</body>
+
+</html>

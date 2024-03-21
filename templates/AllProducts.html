@@ -1,0 +1,75 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Products</title>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+  <link rel="stylesheet" href="{% static "products.css" %}">
+</head>
+
+
+<body>
+  {% if user.is_authenticated %}
+  <div class="container">
+    <main>
+      <div class="searchbar">
+        <span class="material-symbols-sharp">search</span>
+        <input type="text" placeholder="Search">
+      </div>
+
+      <div class="products">
+        <h2>All Products</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Rate</th>
+              <th>Bike Type</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for product in Products %}
+            <tr>
+              <td>{{product.Name}} </td>
+              <td>{{ product.Rate }} </td>
+              <td>{{product.Bike_Type}}</td>
+              <td>
+                <a href="{% url "Edit Product" product.id %}">edit</a>
+              </td>
+            </tr>
+            {% endfor %}
+        </table>
+      </div>
+
+      <div class="top">
+
+        <div class="theme-toggle-btn">
+          <span class="material-symbols-sharp active">light_mode</span>
+          <span class="material-symbols-sharp">dark_mode</span>
+        </div>
+
+        <div class="profile">
+          <div class="info">
+            <p>Hey, <b>Administrator</b></p>
+            <small class = "text-muted">Admin</small>
+          </div>
+          <div class="profile-photo">
+            <!-- <img src="images/profile-1.jpg" alt=""> -->
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src = "{% static "Allproducts.js" %}"></script>
+  {% endif %}
+</body>
+
+
+</html>

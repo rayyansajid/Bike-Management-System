@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivered successfully</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="add-product-container delivered-container">
+            <span class="top-effect"></span>
+            <h2>Congratulations! On <span class="Product-title">Receiving</span> Your Order Successfully 🎉</h2>
+            <p>Thank you for choosing our service. We appreciate your trust and hope you enjoy your products. Visit us again soon!</p>
+            <!-- Arabic message -->
+            <p style="color: #4a90e2; font-size: 1.5rem; margin-top: 20px;">جَزَاكَ اللهُ خَيْرًا</p>
+
+            <p><b>Bike Traders</b> <i class="fa-regular fa-copyright"></i></p>
+        </div>
+    </div>
+
+    <!--Styles here-->
+    <style>
+    body {
+        font-family: "Poppins", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #cccccc4d;
+        overflow: hidden; /* Prevent scrolling during the animation */
+    }
+
+    h2 {
+        color: #7380ec;
+    }
+
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh; /* Make the container full-height */
+    }
+
+    .delivered-container {
+        position: relative;
+        max-width: 500px;
+        text-align: center;
+        padding: 40px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0 0 22px rgba(0, 0, 0, 0.3);
+        background-color: white;
+        margin-top: 50px;
+        opacity: 0; /* Initially hidden */
+        transform: translateY(50px); /* Move down to prepare for animation */
+        animation: showAnimation 1s ease-out forwards; /* Animation definition */
+    }
+
+    @keyframes showAnimation {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .top-effect {
+        position: absolute;
+        content: '';
+        display: block;
+        width: 100%;
+        height: 5px;
+        background-color: #7380ec;
+        top: 0;
+        left: 0;
+        border-radius: 40px;
+    }
+
+    .delivered-container p {
+        font-size: 1.2rem;
+        color: #333;
+        margin-top: 20px; /* Adjusted margin for the paragraphs */
+    }
+
+    /* Override the styles for the delivered page on smaller screens if needed */
+    @media (max-width: 480px) {
+        .container {
+            padding: 10px;
+        }
+
+        .delivered-container {
+            width: 90%;
+            padding: 20px;
+        }
+
+        .delivered-container h2 {
+            font-size: 1.2rem;
+        }
+
+        .delivered-container p {
+            font-size: 0.9rem;
+        }
+    }
+</style>
+
+</body>
+</html>

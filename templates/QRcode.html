@@ -1,0 +1,380 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+
+   <link rel="stylesheet" type="text/css" href="{% static "sticker.css" %}">
+
+
+  <title>Print Stickers</title>
+
+  <style>
+    /* Print logic */  
+    .print-only {
+      display: none;
+    }
+    
+    @media print {
+      .screen-only {
+        display: none;
+      }
+      
+      .print-only {
+        display: block; 
+      }
+
+      .sticker {
+        page-break-after: always;
+        overflow: visible;
+      }
+
+      @page {
+        size: A4;
+        margin: 0; 
+      }
+    }
+
+    .container-sticker {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .input-controls {
+      margin-top: 50px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 300px;
+      gap: 10px;
+    }
+
+    .pri-text {
+      padding-left: 10px;
+      text-align: left;
+      border: 1px solid lightgray;
+      border-radius: 10px;
+      padding-block: 8px;
+      background-color: #f0f0f0;
+      outline: none;
+      border: none;
+      line-height: 1;
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: #333;
+      margin-bottom: 8px;
+
+    }
+
+
+
+    .pri-btn {
+      margin-top: 3px;
+      border: none;
+      background-color: #7380ec;
+      color: white;
+      padding-block: 8px;
+      border-radius: 20px;
+      font-family: "Poppins", sans-serif;
+      font-weight: bold;
+    }
+
+    .pri-btn:hover {
+      transform: translateY(1px);
+    }
+
+  </style>
+
+</head>
+
+<body>
+  {% if user.is_authenticated %}
+  <div class="screen-only container input-controls">
+    <input class="pri-text" type="number" id="stickerCount" value="{{NumOfBoxes}}">
+    <button class="pri-btn" onclick="delayedPrint()">Print Stickers</button>
+    <button class="pri-btn" onclick="refreshPage()">Refresh</button>
+  </div>
+
+  <div class="container container-sticker" id="stickers"></div>
+
+  <script>
+
+    function printStickers() {
+
+       let stickerNumber = 0;
+    
+      // Hide screen elements  
+      document.querySelector('.screen-only').style.display = 'none';
+
+      let qrCode = `
+      <div class="fifth-section-right">
+          <img src="googleqrcode.png" alt="" width="210px"
+           height="200px">
+       </div>
+      `;
+      
+      // Generate stickers
+      let stickerCount = document.getElementById('stickerCount').value;
+      let stickersHtml = '';
+      for (let i = 0; i < stickerCount; i++) {
+        stickerNumber++;
+        stickersHtml += `
+            <div class="container">
+    <div class="sticker">
+      <div class="sticker-info container-info flex">
+
+        <!-- Sections -->
+        <img class = "comp_logo" src = "design2.png" >
+        
+        <section class = "first-sect flex">
+          
+          <div class="first-sect-left">
+            <h3>Bike Traders</h3>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="first-sect-right flex">
+            <p><b>From:</b></p>
+            
+            <div class="company-info">
+              <p><b>Company Name</b></p>
+              <p>Address</p>
+              <p>City</p>
+            </div>
+            
+          </div>
+
+          <div class="divider-sect"></div>
+        </section>
+
+        
+
+        <section class = "second-sect flex">
+          <div class="second-sect-left">
+            <img src="whatsqrcode.jpeg" alt="">
+            <p>WhatsApp catalog</p>
+          </div>
+          
+
+          <div class="second-sect-right start">
+            <p><b>To:</b></p>
+            <h2>{{Package.Client.Company}}</h2>
+            <p>{{Package.Client.Address}}</p>
+            <p>{{Package.City}}</p>
+          </div>
+
+          <div class="divider-sect"></div>
+        </section>
+
+        <section class = "third-sect flex">
+          <div class="third-sect-left">
+            <h4>Order nr:</h4>
+            <h4>{{Package.id}}</h4>
+          </div>
+
+          <div class="third-sect-right">
+            <img src="barcode.png" alt="">
+          </div>
+          
+          <div class="divider-sect"></div>
+        </section>
+
+        <section class = "fourth-sect flex">
+          <p class = "ref-number">Payorder Date: {{Package.payorderDate}}</p>
+
+           <div class="divider"></div>
+
+          <div class="fourth-sect-right">
+            <p>Dispatched on: {% now "DATE_FORMAT" %}</p>
+          </div>
+
+          <div class="divider-sect"></div>
+        </section>
+
+        <section class = "fifth-sect flex">
+          <div class="fifth-sect-left flex">
+            <div class="col1">
+              <h4>Item nr:</h4>
+              <h4>00000/2017</h4>
+
+              <div class="divider-col">
+              </div>
+            </div>
+
+            
+
+            <div class="col2">
+              <p><b>Delivery instruction:</b></p>
+              <p><span>{{Package.Instructions}}</span></p>
+            </div>
+          </div>
+
+          <div class="fifth-section-right">
+            <img src="googleqrcode.png" alt="" width="210px"
+            height="200px">
+            <h3>Scan Me</h3>
+          </div>
+        </section>
+
+        <div class="safety">
+          <img class = "safety_icon" src = "safety.png">
+          <p class = "handlewcare" >Handle With Care !</p>
+        </div>
+
+      </div>
+    </div>
+  </div>
+        `;
+      }
+      
+      // Print only elements
+      stickersHtml += `
+        <h1 class="print-only">Printed on ${new Date()}</h1>  
+      `;
+      
+      document.getElementById('stickers').innerHTML = stickersHtml;
+      
+      // Open print dialog
+      window.print();
+      
+    }
+
+    function delayedPrint() {
+
+       let stickerNumber = 0;
+
+      document.querySelector('.screen-only').style.display = 'none';
+      let stickerCount = document.getElementById('stickerCount').value;
+      let stickersHtml = '';
+      for (let i = 0; i < stickerCount; i++) {
+        stickerNumber++;
+        stickersHtml += `
+        <div class="container">
+    <div class="sticker">
+      <div class="sticker-info container-info flex">
+
+        <!-- Sections -->
+        <section class = "first-sect flex">
+          
+          <div class="first-sect-left">
+            <h3>Bike Traders</h3>
+          </div>
+
+          <div class="divider"></div>
+
+          <div class="first-sect-right flex">
+            <p><b>From:</b></p>
+            
+            <div class="company-info">
+              <p><b>Bike Traders - Ride The Win!</b></p>
+              <p>Address</p>
+              <p>City</p>
+            </div>
+            
+          </div>
+
+          <div class="divider-sect"></div>
+        </section>
+
+        
+
+        <section class = "second-sect flex">
+          <div class="second-sect-left">
+            <img src="{% static 'images/googleqrcode.png' %}" alt="">
+            <p>WhatsApp catalog</p>
+          </div>
+          
+
+          <div class="second-sect-right start">
+            <p><b>To:</b></p>
+            <h2>{{Package.Client.Company}}</h2>
+            <p>{{Package.Client.Address}}</p>
+            <p>{{Package.City}}</p>
+          </div>
+
+          <div class="divider-sect"></div>
+        </section>
+
+        <section class = "third-sect flex">
+          <div class="third-sect-left">
+            <h4>Order nr:</h4>
+            <h4>{{Package.id}}</h4>
+          </div>
+
+          <div class="third-sect-right">
+            <img src="barcode.png" alt="">
+          </div>
+          
+          <div class="divider-sect"></div>
+        </section>
+
+        <section class = "fourth-sect flex">
+          <p class = "ref-number">Payorder Date: {{Package.payorderDate}}</p>
+
+           <div class="divider"></div>
+
+          <div class="fourth-sect-right">
+            <p>Dispatched on: {% now "DATE_FORMAT" %}</p>
+          </div>
+
+          <div class="divider-sect"></div>
+        </section>
+
+        <section class = "fifth-sect flex">
+          <div class="fifth-sect-left flex">
+            <div class="col1">
+              <h4>Box nr:</h4>
+              <h4>${stickerNumber}/${stickerCount}</h4>
+
+              <div class="divider-col">
+              </div>
+            </div>
+
+            
+
+            <div class="col2">
+              <p><b>Delivery instruction:</b></p>
+              <p><span>{{Package.Instructions}}</span></p>
+            </div>
+          </div>
+
+          <div class="fifth-section-right">
+            <img src="{% static 'images/qr-code.png' %}" alt="" width="210px"
+            height="200px">
+            <h3>Scan Me</h3>
+          </div>
+        </section>
+
+        <div class="safety">
+          <img class = "safety_icon" src="{% static 'images/safety.png' %}" alt="">
+          <p class = "handlewcare" >Handle With Care !</p>
+        </div>
+
+      </div>
+    </div>
+  </div>   
+        `;
+      }
+      stickersHtml += `<h1 class="print-only">Printed on ${new Date()}</h1>`;
+      document.getElementById('stickers').innerHTML = stickersHtml;
+
+      setTimeout(() => {
+        window.print();
+      }, 1000); // 2000 milliseconds delay
+    }
+
+    function refreshPage() {
+      location.reload();
+    }
+    
+    window.onafterprint = function() {
+      document.querySelector('.screen-only').style.display = 'flex'; 
+    }
+    
+  </script>
+  {% endif %}
+</body>
+
+</html>

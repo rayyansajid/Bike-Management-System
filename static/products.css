@@ -1,0 +1,266 @@
+/* Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap');
+
+/* ROOT VARIABLES */
+:root {
+  --color-primary: #7380ec; /* Side Shape bg*/
+  --color-danger: #ff7782;  /* Button */
+  --color-success: #41f1b6;
+  --color-warning: #ffbb55;
+  --color-white: #fff;
+  --color-info-dark: #7d8da1;
+  --color-info-light: #dceleb;
+  --color-dark: #363949;
+  --color-light: rgba(132, 139, 200, 0.18);
+  --color-primary-variant: #111e88;
+  --color-dark-variant: #677483;
+  --color-background: #f6f6f9;
+  --color-light-prod: rgba(132, 139, 200, 0.18);
+
+  --card-border-radius: 2rem;
+  --border-radius-1: 0.4rem;
+  --border-radius-2: 0.8rem;
+  --border-radius-3: 1.2rem;
+
+  --card-padding: 1.8rem;
+  --padding-1: 1.2rem;
+
+  --box-shadow: 0 2rem 3rem var(--color-light);
+}
+
+/* Dark theme variables */
+.dark-theme-variables {
+  --color-background: #181a1e;
+  --color-white: #202528;
+  --color-dark: #edeffd;
+  --color-dark-variant: #a3bdcc;
+  --color-light: rgba(0, 0, 0, 0.4);
+  --color-light-prod: white;
+  --box-shadow: 0 2rem 3rem var(--color-light);
+}
+
+
+
+* {
+  margin: 0;
+  padding: 0;
+  outline: 0;
+  appearance: none;
+  border: 0;
+  text-decoration: none;
+  list-style: none;
+  box-sizing: border-box;
+}
+
+.primary {
+  color: var(--color-danger);
+}
+
+.danger {
+  color: var(--color-primary);
+}
+
+.warning {
+  color: var(--color-warning);
+}
+
+html {
+  font-size: 14px;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.88rem;
+  background: var(--color-background);
+  user-select: none;
+  overflow-x: hidden;
+  color: var(--color-dark);
+}
+
+.container {
+  display: grid;
+  width: 96%;
+  margin: 0 auto;
+  padding-inline: 100px;
+  gap: 3rem;
+  grid-template-columns: 1fr;
+}
+
+.profile-photo {
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+.top .theme-toggle-btn span {
+  font-size: 1.2rem;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.top .theme-toggle-btn span.active {
+  background: var(--color-primary);
+  color: white;
+  border-radius: var(--border-radius-1);
+}
+
+.top .profile {
+  display: flex;
+  gap: 2rem;
+  text-align: right;
+  align-items: center;
+}
+
+.top {
+  display: flex;
+  justify-content: end;
+  gap: 2rem;
+  
+}
+
+.top .theme-toggle-btn {
+  background: var(--color-light);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 1.6rem;
+  width: 4.2rem;
+  cursor: pointer;
+  border-radius: var(--border-radius-1);
+}
+
+/* Search bar */
+
+.searchbar {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-top: 8rem;
+  padding-left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  background-color: var(--color-light-prod);
+  margin-inline: 8rem;
+  height: 45px;
+  border-radius: 12px;
+  transition: all 0.3s;
+}
+
+.searchbar span.active {
+  color: #181a1e;
+}
+
+.searchbar:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transform: translateY(-2px);
+  background: #eee;
+}
+
+.searchbar input {
+  width: 100%;
+  font-family: "Poppins",sans-serif;
+  font-size: 1.2rem;
+  background: none;
+  height: 100%;
+}
+
+/* Top */
+
+.top {
+  position: absolute;
+  top: 0.8rem;
+  right: 1.1rem;
+}
+
+
+/* Table */
+
+main .products {
+  margin-top: 5rem;
+}
+
+main .products h2 {
+  font-size: 2rem;
+  margin-bottom: 0.7rem;
+  text-align: center;
+}
+
+main .products table {
+  background: var(--color-white);
+  width: 100%;
+  border-radius: var(--card-border-radius);
+  padding: var(--card-padding);
+  text-align: center;
+  box-shadow: var(--box-shadow);
+  transition: all 300ms ease;
+}
+
+main .products table:hover {
+  box-shadow: none;
+}
+
+main table tbody td{
+  height: 2.8rem;
+  border-bottom: 1px solid var(--color-light);
+  color: var(--color-dark-variant);
+}
+
+main table tbody tr:last-child  td { 
+  border: none;
+}
+
+main .products a {
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-align: center;
+  display: block;
+  margin: 1rem auto;
+  color: var(--color-primary);
+}
+
+
+
+/* Media queries */
+
+@media screen and (max-width:1200px){
+  .container {
+    padding-inline: 30px;
+  }
+
+  .searchbar {
+    margin-inline: 3rem;
+  }
+
+}
+
+@media screen and (max-width: 768px){
+
+  .container {
+    padding-inline: 10px;
+  }
+
+  .searchbar {
+    margin-inline: 2rem;
+  }
+
+  main table thead tr th:last-child,
+  main table thead tr th:first-child {
+    display: none;
+  }
+
+
+  main table tbody tr td:last-child,
+  main table tbody tr td:first-child {
+    display: none;
+  }
+}

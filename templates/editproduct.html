@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Product</title>
+
+    <link rel="stylesheet" type="text/css" href="{% static "EditProduct.css" %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+    {% if user.is_authenticated %}
+    <form action="" method="post" class="container">
+        {% csrf_token %}
+        <div class="edit-product-container">
+            <span class="top-effect"></span>
+            <h2>Edit <span class="Product-title">Product</span></h2>
+            <div class="name">
+                <label for="name"><b>Name:</b></label>
+                <input type="text" placeholder="Enter Product's Name" name="name" required>
+            </div>
+            <div class="rate">
+                <label for="rate"><b>Rate:</b></label>
+                <input type="number" placeholder="Rate Of Product" name="rate" required>
+            </div>
+            <div class="BikeType">
+                <label for="biketype"><b>Bike Type:</b></label>
+                <select name="biketype">
+                    <option value="70">70</option>
+                    <option value="125">125</option>
+                </select>
+            </div>
+            <button type="submit">Save Changes</button>
+        </div>
+    </form>
+    {% endif %}
+</body>
+</html>

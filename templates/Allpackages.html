@@ -1,0 +1,73 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Products</title>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+  <link rel="stylesheet" href="{% static "products.css" %}">
+</head>
+
+
+<body>
+  {% if user.is_authenticated %}
+  <div class="container">
+    <main>
+      <div class="products">
+        <h2>All packages</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Client name</th>
+              <th>Package number</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for package in Packages %}
+            <tr>
+              <td> {{package.Client.Name}} </td>
+              <td> {{ package.id }} </td>
+              {% if package.Status == "Declined" %} 
+                <td class="warning"> {{package.Status}} </td>
+                {% elif package.Status == "Pending" %}
+                  <td class="primary"> {{package.Status}} </td>
+                {% else %}
+                  <td class="danger"> {{package.Status}} </td>
+              {% endif %}
+              <td>
+                <a href="{% url "package_details" package.id %}">Details</a>
+              </td>
+            </tr>
+            {% endfor %}
+        </table>
+      </div>
+
+      <div class="top">
+
+        <div class="theme-toggle-btn">
+          <span class="material-symbols-sharp active">light_mode</span>
+          <span class="material-symbols-sharp">dark_mode</span>
+        </div>
+
+        <div class="profile">
+          <div class="info">
+            <p>Hey, <b>Administrator</b></p>
+            <small class = "text-muted">Admin</small>
+          </div>
+          <div class="profile-photo">
+            <img src="images/profile-1.jpg" alt="">
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  {% endif %}
+</body>
+
+
+</html>

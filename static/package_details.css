@@ -1,0 +1,166 @@
+        /* Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Roboto:wght@400;500;700&display=swap');
+
+/* ROOT VARIABLES */
+:root {
+  --color-primary: #7380ec; /* Side Shape bg*/
+  --color-danger: #ff7782;  /* Button */
+  --color-success: #41f1b6;
+  --color-warning: #ffbb55;
+  --color-white: #fff;
+  --color-info-dark: #7d8da1;
+  --color-info-light: #dceleb;
+  --color-dark: #363949;
+  --color-light: rgba(132, 139, 200, 0.18);
+  --color-primary-variant: #111e88;
+  --color-dark-variant: #677483;
+  --color-background: #f6f6f9;
+
+  --card-border-radius: 2rem;
+  --border-radius-1: 0.4rem;
+  --border-radius-2: 0.8rem;
+  --border-radius-3: 1.2rem;
+
+  --card-padding: 1.8rem;
+  --padding-1: 1.2rem;
+
+  --box-shadow: 0 2rem 3rem var(--color-light);
+}
+
+/* Dark theme variables */
+.dark-theme-variables {
+  --color-background: #181a1e;
+  --color-white: #202528;
+  --color-dark: #edeffd;
+  --color-dark-variant: #a3bdcc;
+  --color-light: rgba(0, 0, 0, 0.4);
+  --box-shadow: 0 2rem 3rem var(--color-light);
+}
+
+/* package_details.css */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background: #cccccc45;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.card {
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: var(--box-shadow);
+  margin-top: 30px;
+  padding-top: 2rem;
+  position: relative;
+}
+
+.top-effect {
+  position: absolute;
+  width: 100%;
+  height: 5px;
+  top: 0;
+  left: 0;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  background: var(--color-primary);
+}
+
+.col {
+  margin-bottom: 20px;
+}
+
+table {
+  border: 1px solid #ccc;
+  margin-top: 2rem;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+table th,
+table td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+table th {
+  color: var(--color-primary);
+}
+
+a {
+    text-decoration: none;
+    background-color: var(--color-primary);
+    color: white;
+    padding: 8px 40px;
+    border-radius: 12px;
+    font-weight: 500;
+}
+
+/* Media Query for Responsiveness */
+
+/* package_details.css */
+
+/* Existing CSS code... */
+
+/* Media queries for responsive design */
+@media only screen and (max-width: 768px) {
+  .card {
+    margin-top: 40px;
+    width: 80%;
+  }
+
+  table {
+    font-size: 14px;
+  }
+}
+
+/* For smaller devices */
+@media only screen and (max-width: 600px) {
+  .card {
+    width: 90%;
+  }
+
+  table {
+    font-size: 10px;
+    font-weight: 500;
+  }
+
+  a {
+    padding: 4px 16px;
+    font-size: 14px;
+  }
+}
+
+/* For extra small devices */
+@media only screen and (max-width: 400px) {
+  .card {
+    margin-top: 5px;
+    width: 95%;
+  }
+
+  table {
+    font-size: 8px;
+    font-weight: 500;
+  }
+
+  a {
+    padding: 4px 16px;
+    font-size: 10px;
+  }
+}
+
+/* More media queries for other specific devices if needed */

@@ -1,0 +1,42 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bike Traders</title>
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Sharp:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    <link rel="stylesheet" type="text/css" href="{% static "frontpage.css" %}">
+
+</head>
+<body>
+    <div class="container">
+        <div class="card flex">
+            <div class="logo">
+
+                <!--New image used here-->
+                <img src="{% static 'images/design2.png' %}" alt="">
+                
+            </div>
+            <div class="card-content flex">
+                <h3>Welcome to, <span class="title">Bike Traders</span></h3>
+                <p>Place where you can find good quality products</p>
+                <div class="buttons flex">
+                    <a href="{% url 'Payorder' %}?form=payorder">
+                        <button>Payorder Form</button>
+                    </a>
+
+                    <a href="{% url 'login' %}">
+                        <button>Login</button>
+                    </a>
+                </div>
+                <p>Have you received your order?</p>
+                <a href="{% url 'Receive It' %}">
+                    <button class="receive-btn">Receive</button>
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

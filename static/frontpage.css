@@ -1,0 +1,113 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
+
+
+:root {
+  --color-primary: #7380ec;
+  --color-light: rgba(132, 139, 200, 0.18);
+  --box-shadow: 0 2rem 3rem var(--color-light);
+}
+
+/* Resets */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--color-primary);
+  overflow: hidden;
+}
+
+body, button {
+  font-family: "Poppins",sans-serif;
+}
+
+p {
+  margin-block: 10px;
+  font-size: 18px;
+  max-width: 300px;
+  width: 100%;
+  color: gray;
+  font-weight: 400;
+}
+
+.title {
+  color: var(--color-primary);
+}
+
+img {
+  width: 17rem;
+  height: 17rem;
+}
+
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  padding-inline: 20px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.flex {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+}
+
+.buttons {
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.buttons button {
+  padding: 10px;
+  width: 200px;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+button {
+  transition: all 300ms ease;
+}
+
+button:hover {
+  transform: translateY(10%);
+  background-color: rgba(1, 64, 100, 0.786);
+}
+
+.receive-btn {
+  padding: 10px;
+  width: 200px;
+  margin: 0 auto;
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+}
+
+.card {
+  background: white;
+  display: grid;
+  box-shadow: 0 5px 30px rgba(0,0,0,0.4);
+  padding: 50px 80px;
+  border-radius: 20px;
+  grid-template-columns: 1fr;
+  z-index: 6;
+}
+
+.card-content {
+  align-items: center;
+  justify-content: center;
+}
